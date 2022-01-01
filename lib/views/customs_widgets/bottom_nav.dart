@@ -2,7 +2,8 @@ import 'package:bookworms/constants.dart';
 import 'package:flutter/material.dart';
 
 class BottomNav extends StatelessWidget {
-  const BottomNav({Key? key}) : super(key: key);
+  final Function? onpressed;
+  const BottomNav({Key? key, this.onpressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

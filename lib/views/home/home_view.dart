@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bookworms/constants.dart';
+import 'package:bookworms/views/add_book/add_book_view.dart';
 import 'package:bookworms/views/customs_widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
@@ -77,7 +78,12 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        const BottomNav()
+        BottomNav(
+          onpressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddBookView()));
+          },
+        )
       ],
     ));
   }
