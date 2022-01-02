@@ -1,5 +1,7 @@
 import 'package:bookworms/constants.dart';
+import 'package:bookworms/views/add_book/add_book_view.dart';
 import 'package:bookworms/views/home/home_view.dart';
+import 'package:bookworms/views/read_book/read_book_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,9 +18,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: scaffoldbg,
-        primarySwatch: Colors.blue,
       ),
       home: const Home(),
+      routes: <String, WidgetBuilder>{
+        '/addView': (BuildContext context) => const AddBookView(),
+        '/readBooks': (BuildContext context) => const ReadBooksView(),
+      },
     );
   }
 }

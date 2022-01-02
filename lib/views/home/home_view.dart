@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:bookworms/constants.dart';
-import 'package:bookworms/views/add_book/add_book_view.dart';
 import 'package:bookworms/views/customs_widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
@@ -19,18 +18,27 @@ class Home extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Icon(
-                    Icons.menu,
-                    color: colorGreen,
-                    size: 30,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/readBooks');
+                    },
+                    child: const Icon(
+                      Icons.menu,
+                      color: colorWhite,
+                      size: 30,
+                    ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: CircleAvatar(
-                      backgroundImage: AssetImage('assets/pic.jpg'),
-                      backgroundColor: Colors.white,
-                      radius: 30,
+                      radius: 32,
+                      backgroundColor: colorWhite,
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage('assets/pic.jpg'),
+                        backgroundColor: Colors.white,
+                        radius: 30,
+                      ),
                     ),
                   ),
                 ],
@@ -43,10 +51,10 @@ class Home extends StatelessWidget {
                     color: colorGrey,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: const Text(
-                  'You read 20 book in 2021',
+                  'You read 20 book in 2022',
                   style: TextStyle(
                       fontSize: 20,
-                      color: colorGreen,
+                      color: colorWhite,
                       decoration: TextDecoration.none),
                 ),
               )),
@@ -59,7 +67,7 @@ class Home extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: const [
                         BoxShadow(
-                            color: colorGreen,
+                            color: colorWhite,
                             blurRadius: 11,
                             spreadRadius: 4,
                             offset: Offset(1, 1))
@@ -80,8 +88,7 @@ class Home extends StatelessWidget {
         ),
         BottomNav(
           onpressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddBookView()));
+            Navigator.pushNamed(context, '/addView');
           },
         )
       ],
