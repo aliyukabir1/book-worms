@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bookworms/constants.dart';
+import 'package:bookworms/services/book_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -9,7 +10,9 @@ class AddBookView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double? rating;
+    TextEditingController titleController = TextEditingController();
+    TextEditingController authorController = TextEditingController();
+    int? rating;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -20,9 +23,12 @@ class AddBookView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Input(hintText: 'Title'),
+              Input(hintText: 'Title', controller: titleController),
               const SizedBox(height: 15),
-              const Input(hintText: 'Author (optional)'),
+              Input(
+                hintText: 'Author (optional)',
+                controller: authorController,
+              ),
               const SizedBox(height: 15),
               const Text('Rating',
                   style: TextStyle(
@@ -45,7 +51,7 @@ class AddBookView extends StatelessWidget {
                   maxRating: 5,
                   minRating: 1,
                   onRatingUpdate: (e) {
-                    rating = e;
+                    rating = e.toInt();
                   },
                 ),
               ),
@@ -53,13 +59,13 @@ class AddBookView extends StatelessWidget {
               MaterialButton(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                onPressed: () {
+                onPressed: () async {
                   Map<String, dynamic> newdata = {
-                    'name': 'naem',
-                    'title': 'title',
+                    'title': titleController.text,
+                    'author': authorController.text,
                     'rating': rating
                   };
-                  // print(newdata);
+                  await BookServices().addBook(newdata);
                 },
                 color: colorGrey,
                 elevation: 12,
@@ -90,6 +96,7 @@ class Input extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextField(
         controller: controller,
+        onChanged: (value) {},
         textCapitalization: TextCapitalization.words,
         cursorColor: colorWhite,
         style: const TextStyle(color: colorWhite, fontSize: 20),

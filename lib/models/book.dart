@@ -1,8 +1,8 @@
 class Book {
   String title;
-  double rating;
-  double? author;
-  Book({required this.title, required this.rating, this.author});
+  int? rating;
+  String? author;
+  Book({required this.title, this.rating, this.author});
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
