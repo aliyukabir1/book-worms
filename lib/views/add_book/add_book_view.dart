@@ -1,15 +1,23 @@
 import 'dart:ui';
 
 import 'package:bookworms/constants.dart';
-import 'package:bookworms/services/book_services.dart';
+import 'package:bookworms/services/service_injector.dart';
+import 'package:bookworms/views/add_book/components/input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class AddBookView extends StatelessWidget {
+class AddBookView extends StatefulWidget {
   const AddBookView({Key? key}) : super(key: key);
 
   @override
+  State<AddBookView> createState() => _AddBookViewState();
+}
+
+class _AddBookViewState extends State<AddBookView> {
+  @override
   Widget build(BuildContext context) {
+    ServiceInjector si = ServiceInjector();
+
     TextEditingController titleController = TextEditingController();
     TextEditingController authorController = TextEditingController();
     int? rating;
@@ -17,25 +25,27 @@ class AddBookView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          width: size.width,
-          height: size.height,
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Input(hintText: 'Title', controller: titleController),
+              Input(
+                hintText: 'Title',
+                controller: titleController,
+              ),
               const SizedBox(height: 15),
               Input(
                 hintText: 'Author (optional)',
                 controller: authorController,
               ),
               const SizedBox(height: 15),
-              const Text('Rating',
-                  style: TextStyle(
+              const Text(
+                'Rating',
+                style: TextStyle(
                     color: colorGrey,
                     fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  )),
+                    fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 15),
               Container(
                 padding: const EdgeInsets.all(6),
@@ -55,17 +65,24 @@ class AddBookView extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 30),
               MaterialButton(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 onPressed: () async {
-                  Map<String, dynamic> newdata = {
-                    'title': titleController.text,
-                    'author': authorController.text,
-                    'rating': rating
-                  };
-                  await BookServices().addBook(newdata);
+                  FocusScope.of(context).unfocus();
+                  if (titleController.text != '') {
+                    Map<String, dynamic> newdata = {
+                      'title': titleController.text,
+                      'author': authorController.text,
+                      'rating': rating ?? 1
+                    };
+                    await si.bookServices.addBook(newdata);
+                    titleController.clear();
+                    authorController.clear();
+                    rating = null;
+                    Navigator.pop(context);
+                  }
                 },
                 color: colorGrey,
                 elevation: 12,
@@ -78,34 +95,6 @@ class AddBookView extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class Input extends StatelessWidget {
-  final String hintText;
-  final TextEditingController? controller;
-
-  const Input({Key? key, this.controller, required this.hintText})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: TextField(
-        controller: controller,
-        onChanged: (value) {},
-        textCapitalization: TextCapitalization.words,
-        cursorColor: colorWhite,
-        style: const TextStyle(color: colorWhite, fontSize: 20),
-        decoration: InputDecoration(
-            focusedBorder: InputBorder.none,
-            hintText: hintText,
-            fillColor: colorGrey,
-            filled: true,
-            focusColor: Colors.grey),
       ),
     );
   }

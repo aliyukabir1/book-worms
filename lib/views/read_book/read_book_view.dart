@@ -1,14 +1,14 @@
 import 'package:bookworms/constants.dart';
-import 'package:bookworms/services/book_services.dart';
+import 'package:bookworms/services/service_injector.dart';
 import 'package:flutter/material.dart';
 
 class ReadBooksView extends StatelessWidget {
   ReadBooksView({Key? key}) : super(key: key);
-  final BookServices api = BookServices();
+  final ServiceInjector si = ServiceInjector();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
-        future: api.getAllBooks(),
+        future: si.bookServices.getAllBooks(),
         builder: (context, snapshot) {
           final data = snapshot.data;
           return SafeArea(
