@@ -2,8 +2,8 @@ import 'package:bookworms/constants.dart';
 import 'package:flutter/material.dart';
 
 class BottomNav extends StatelessWidget {
-  final Function? onpressed;
-  const BottomNav({Key? key, this.onpressed}) : super(key: key);
+  final VoidCallback onpressed;
+  const BottomNav({Key? key, required this.onpressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class BottomNav extends StatelessWidget {
               Center(
                 heightFactor: 0.6,
                 child: FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: onpressed,
                   backgroundColor: colorGrey,
                   child: const Icon(
                     Icons.add,
@@ -38,7 +38,7 @@ class CustomButtonPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = Colors.lightGreen
+      ..color = colorWhite.withOpacity(0.8)
       ..style = PaintingStyle.fill;
     Path path = Path()..moveTo(0, 20);
     path.quadraticBezierTo(size.width * 0.2, 0, size.width * 0.35, 0);
