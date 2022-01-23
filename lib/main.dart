@@ -1,7 +1,6 @@
 import 'package:bookworms/constants.dart';
-import 'package:bookworms/views/add_book/add_book_view.dart';
+import 'package:bookworms/views/auth/sign_in/sign_in.dart';
 import 'package:bookworms/views/home/home_view.dart';
-import 'package:bookworms/views/read_book/read_book_view.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -11,6 +10,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  //boilerplate
+  final bool loggedIn = true;
 
   // This widget is the root of your application.
   @override
@@ -28,11 +29,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               scaffoldBackgroundColor: scaffoldbg,
             ),
-            home: const Home(),
-            routes: <String, WidgetBuilder>{
-              '/addView': (BuildContext context) => const AddBookView(),
-              '/readBooks': (BuildContext context) => ReadBooksView(),
-            },
+            home: loggedIn ? const Home() : SignIn(),
           );
         });
   }

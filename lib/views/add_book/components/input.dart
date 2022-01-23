@@ -5,9 +5,14 @@ class Input extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final TextCapitalization? textCapitalization;
 
   const Input(
-      {Key? key, this.controller, required this.hintText, this.validator})
+      {Key? key,
+      this.controller,
+      required this.hintText,
+      this.validator,
+      this.textCapitalization})
       : super(key: key);
 
   @override
@@ -16,9 +21,8 @@ class Input extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
         controller: controller,
-        onChanged: (value) {},
         validator: validator,
-        textCapitalization: TextCapitalization.words,
+        textCapitalization: textCapitalization ?? TextCapitalization.none,
         cursorColor: colorWhite,
         style: const TextStyle(color: colorWhite, fontSize: 20),
         decoration: InputDecoration(

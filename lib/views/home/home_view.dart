@@ -1,5 +1,7 @@
+import 'package:bookworms/constants.dart';
 import 'package:bookworms/services/book_services.dart';
 import 'package:bookworms/views/home/components/body.dart';
+import 'package:bookworms/views/navigation_drawer/navigation_drawer.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -8,9 +10,13 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BookServices().getAllBooks();
-    return const SafeArea(
+    return SafeArea(
         child: Scaffold(
-      body: Body(),
+      appBar: AppBar(
+        backgroundColor: scaffoldbg,
+      ),
+      drawer: const NavigationDrawer(),
+      body: const Body(),
     ));
   }
 }

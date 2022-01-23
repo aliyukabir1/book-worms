@@ -1,4 +1,6 @@
 import 'package:bookworms/constants.dart';
+import 'package:bookworms/services/service_injector.dart';
+import 'package:bookworms/views/add_book/add_book_view.dart';
 import 'package:bookworms/views/customs_widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
@@ -15,34 +17,34 @@ class Body extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/readBooks');
-                    },
-                    child: const Icon(
-                      Icons.menu,
-                      color: colorWhite,
-                      size: 30,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      radius: 32,
-                      backgroundColor: colorWhite,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('assets/pic.jpg'),
-                        backgroundColor: Colors.white,
-                        radius: 30,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 60),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.pushNamed(context, '/readBooks');
+              //       },
+              //       child: const Icon(
+              //         Icons.menu,
+              //         color: colorWhite,
+              //         size: 30,
+              //       ),
+              //     ),
+              //     const Padding(
+              //       padding: EdgeInsets.all(8.0),
+              //       child: CircleAvatar(
+              //         radius: 32,
+              //         backgroundColor: colorWhite,
+              //         child: CircleAvatar(
+              //           backgroundImage: AssetImage('assets/pic.jpg'),
+              //           backgroundColor: Colors.white,
+              //           radius: 30,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              const SizedBox(height: 30),
               Center(
                   child: Container(
                 padding: const EdgeInsets.all(15),
@@ -87,7 +89,7 @@ class Body extends StatelessWidget {
         ),
         BottomNav(
           onpressed: () {
-            Navigator.pushNamed(context, '/addView');
+            si.router.nextScreen(context, const AddBookView());
           },
         )
       ],
