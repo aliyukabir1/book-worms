@@ -74,7 +74,7 @@ class _AddBookViewState extends State<AddBookView> {
                       'title': titleController.text,
                       'author': authorController.text,
                       'rating': rating ?? 1,
-                      'currentUser': si.bookServices.getCurrentUser()
+                      'currentUser': si.auth.getCurrentUser()
                     };
                     await si.bookServices.addBook(newdata);
                     titleController.clear();

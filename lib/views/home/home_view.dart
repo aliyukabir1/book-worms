@@ -1,7 +1,7 @@
 import 'package:bookworms/constants.dart';
 import 'package:bookworms/services/book_services.dart';
 import 'package:bookworms/services/service_injector.dart';
-import 'package:bookworms/views/customs_widgets/pop_up.dart';
+import 'package:bookworms/views/home/components/pop_up.dart';
 import 'package:bookworms/views/home/components/body.dart';
 import 'package:bookworms/views/navigation_drawer/navigation_drawer.dart';
 import 'package:flutter/material.dart';

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               scaffoldBackgroundColor: scaffoldbg,
             ),
-            home: si.bookServices.isLoggedIn() ? const Home() : SignIn(),
+            home: si.auth.isLoggedIn() ? const Home() : SignIn(),
           );
         });
   }
