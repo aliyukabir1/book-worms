@@ -16,8 +16,6 @@ class AddBookView extends StatefulWidget {
 class _AddBookViewState extends State<AddBookView> {
   @override
   Widget build(BuildContext context) {
-    ServiceInjector si = ServiceInjector();
-
     TextEditingController titleController = TextEditingController();
     TextEditingController authorController = TextEditingController();
     int? rating;
@@ -75,7 +73,8 @@ class _AddBookViewState extends State<AddBookView> {
                     Map<String, dynamic> newdata = {
                       'title': titleController.text,
                       'author': authorController.text,
-                      'rating': rating ?? 1
+                      'rating': rating ?? 1,
+                      'currentUser': si.bookServices.getCurrentUser()
                     };
                     await si.bookServices.addBook(newdata);
                     titleController.clear();

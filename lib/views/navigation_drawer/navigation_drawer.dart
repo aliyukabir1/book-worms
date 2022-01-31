@@ -34,7 +34,7 @@ class NavigationDrawer extends StatelessWidget {
               )),
           ListTile(
             onTap: () {
-              si.router.replaceScreen(context, ReadBooksView());
+              si.router.nextScreen(context, const ReadBooksView());
             },
             title: const Text('See All Books'),
             dense: true,

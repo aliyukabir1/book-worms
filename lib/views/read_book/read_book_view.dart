@@ -3,8 +3,7 @@ import 'package:bookworms/services/service_injector.dart';
 import 'package:flutter/material.dart';
 
 class ReadBooksView extends StatelessWidget {
-  ReadBooksView({Key? key}) : super(key: key);
-  final ServiceInjector si = ServiceInjector();
+  const ReadBooksView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
@@ -14,6 +13,7 @@ class ReadBooksView extends StatelessWidget {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
+                elevation: 0,
                 centerTitle: true,
                 title: const Text('Books Read'),
                 backgroundColor: scaffoldbg,

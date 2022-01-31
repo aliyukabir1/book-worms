@@ -5,18 +5,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 class BookServices {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
+
   Future<dynamic> getAllBooks() async {
     List<Book> bookList = [];
     try {
-      await firestore.collection('books').get().then((value) {
+      await firestore
+          .collection('books')
+          .where('currentUser', isEqualTo: getCurrentUser())
+          .get()
+          .then((value) {
         List<QueryDocumentSnapshot<Map<String, dynamic>>> books = value.docs;
         for (var book in books) {
           bookList.add(Book(
               title: book.data()['title'],
               rating: book.data()['rating'],
-              author: book.data()['author']));
+              author: book.data()['author'],
+              currentUser: book.data()['currentUser']));
         }
       });
+
       return bookList;
     } catch (e) {
       return null;
@@ -42,5 +49,23 @@ class BookServices {
     } catch (e) {
       return null;
     }
+  }
+
+  Future signOut() async {
+    try {
+      await auth.signOut();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  String getCurrentUser() {
+    String? email = auth.currentUser!.email;
+    return email!;
+  }
+
+  bool isLoggedIn() {
+    var user = auth.currentUser;
+    return user == null ? false : true;
   }
 }

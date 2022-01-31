@@ -16,65 +16,61 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: scaffoldbg,
-          elevation: 0,
-          title: const Text('Log In',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-          centerTitle: true,
-        ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
-          child: Form(
-            key: _signInKey,
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Input(
-                controller: email,
-                hintText: 'email@gmail.com',
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Field can not be empty';
-                  }
-                },
-              ),
-              const SizedBox(height: 30),
-              Input(
-                controller: password,
-                hintText: 'password',
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Field can not be empty';
-                  }
-                },
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        si.router.nextScreen(context, SignUp());
-                      },
-                      child: const Text('Register')),
-                  TextButton(
-                      onPressed: () {}, child: const Text('forgot password'))
-                ],
-              ),
-              const SizedBox(height: 30),
-              CustomButton(
-                title: 'Log In',
-                function: () async {
-                  if (_signInKey.currentState!.validate()) {
-                    await si.bookServices
-                        .signIn(email.text, password.text)
-                        .then((value) =>
-                            si.router.replaceScreen(context, const Home()));
-                  }
-                },
-              )
-            ]),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Form(
+        key: _signInKey,
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Text('Log In',
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: colorWhite)),
+          const SizedBox(height: 20),
+          Input(
+            controller: email,
+            hintText: 'email@gmail.com',
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Field can not be empty';
+              }
+            },
           ),
-        ));
+          const SizedBox(height: 30),
+          Input(
+            controller: password,
+            hintText: 'password',
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Field can not be empty';
+              }
+            },
+          ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                  onPressed: () {
+                    si.router.nextScreen(context, SignUp());
+                  },
+                  child: const Text('Register')),
+              TextButton(onPressed: () {}, child: const Text('forgot password'))
+            ],
+          ),
+          const SizedBox(height: 30),
+          CustomButton(
+            title: 'Log In',
+            function: () async {
+              if (_signInKey.currentState!.validate()) {
+                FocusScope.of(context).unfocus();
+                await si.bookServices.signIn(email.text, password.text).then(
+                    (value) => si.router.replaceScreen(context, const Home()));
+              }
+            },
+          )
+        ]),
+      ),
+    ));
   }
 }
