@@ -1,4 +1,5 @@
 import 'package:bookworms/constants.dart';
+import 'package:bookworms/services/service_injector.dart';
 import 'package:bookworms/views/auth/sign_in/sign_in.dart';
 import 'package:bookworms/views/home/home_view.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +26,12 @@ class MyApp extends StatelessWidget {
             );
           }
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(
               scaffoldBackgroundColor: scaffoldbg,
             ),
-            home: loggedIn ? const Home() : SignIn(),
+            home: si.bookServices.isLoggedIn() ? const Home() : SignIn(),
           );
         });
   }

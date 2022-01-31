@@ -17,6 +17,14 @@ class RouterService {
         MaterialPageRoute<Widget>(builder: (BuildContext context) => widget));
   }
 
+  void popUntil(BuildContext context, Widget widget) {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute<Widget>(builder: (BuildContext context) => widget),
+        (Route<dynamic> route) => false);
+    ModalRoute.withName('/');
+  }
+
   void exitApp() {
     SystemChannels.platform.invokeMethod<String>('SystemNavigator.pop');
   }
