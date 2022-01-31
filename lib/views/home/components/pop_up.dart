@@ -13,7 +13,7 @@ class PopUp extends StatelessWidget {
       actions: [
         TextButton(
             onPressed: () async {
-              await si.bookServices.signOut();
+              await si.auth.signOut();
               si.router.popUntil(context, SignIn());
             },
             child: const Text('Yes')),

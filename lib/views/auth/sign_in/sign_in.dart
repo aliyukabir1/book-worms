@@ -64,7 +64,7 @@ class SignIn extends StatelessWidget {
             function: () async {
               if (_signInKey.currentState!.validate()) {
                 FocusScope.of(context).unfocus();
-                await si.bookServices.signIn(email.text, password.text).then(
+                await si.auth.signIn(email.text, password.text).then(
                     (value) => si.router.replaceScreen(context, const Home()));
               }
             },
