@@ -1,10 +1,25 @@
 import 'package:bookworms/constants.dart';
 import 'package:bookworms/services/service_injector.dart';
+import 'package:bookworms/views/profile/profile_view.dart';
 import 'package:bookworms/views/read_book/read_book_view.dart';
+
 import 'package:flutter/material.dart';
 
-class NavigationDrawer extends StatelessWidget {
+class NavigationDrawer extends StatefulWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
+
+  @override
+  State<NavigationDrawer> createState() => _NavigationDrawerState();
+}
+
+class _NavigationDrawerState extends State<NavigationDrawer> {
+  String? imagePath;
+  @override
+  void initState() {
+    imagePath = si.auth.getUser()!.photoURL;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +31,26 @@ class NavigationDrawer extends StatelessWidget {
               decoration: const BoxDecoration(color: scaffoldbg),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   CircleAvatar(
                     radius: 50,
                     backgroundColor: colorGrey,
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage('assets/pic.jpg'),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          si.router.nextScreen(context, ProfileView());
+                        });
+                      },
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundImage: imagePath == null
+                            ? const AssetImage('assets/pic.jpg')
+                            : NetworkImage(imagePath!) as ImageProvider,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 7),
-                  Text(
+                  const SizedBox(height: 7),
+                  const Text(
                     "Aliyu Kabir",
                     style: TextStyle(color: colorWhite),
                   ),

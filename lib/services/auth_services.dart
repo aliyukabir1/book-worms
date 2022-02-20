@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthServices {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
-  Future<dynamic> getAll(String collection) async {}
 
   String getCurrentUser() {
     String? email = auth.currentUser!.email;
@@ -14,6 +13,11 @@ class AuthServices {
   bool isLoggedIn() {
     var user = auth.currentUser;
     return user == null ? false : true;
+  }
+
+  User? getUser() {
+    var user = auth.currentUser;
+    return user;
   }
 
   Future signOut() async {
@@ -34,10 +38,23 @@ class AuthServices {
 
   Future signUp(String email, String password) async {
     try {
-      await auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      await auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) {
+        firestore.collection('users').doc(value.user!.uid).set({
+          'uid': value.user!.uid,
+          'state': '',
+          'profile': value.user!.photoURL,
+          'about': ''
+        });
+      });
     } catch (e) {
       return null;
     }
+  }
+
+  // update user info
+  Future<void> updateUserInfo(Map<String, dynamic> data) async {
+    await firestore.collection('users').doc(auth.currentUser!.uid).update(data);
   }
 }

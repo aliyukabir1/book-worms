@@ -1,10 +1,13 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:bookworms/models/book.dart';
 import 'package:bookworms/services/service_injector.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BookServices {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
 
+//get all books
   Future<dynamic> getAllBooks() async {
     List<Book> bookList = [];
     try {
@@ -25,11 +28,16 @@ class BookServices {
 
       return bookList;
     } catch (e) {
-      return null;
+      rethrow;
     }
   }
 
+//add a book to your collection
   Future addBook(Map<String, dynamic> data) async {
-    await firestore.collection('books').add(data).then((value) {});
+    try {
+      await firestore.collection('books').add(data).then((value) {});
+    } catch (e) {
+      rethrow;
+    }
   }
 }

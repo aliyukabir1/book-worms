@@ -40,6 +40,9 @@ dependencies:
   flutter_native_splash: ^1.2.1
   firebase_auth: ^3.3.5
   shared_preferences: ^2.0.12
+  image_picker: ^0.8.4+5
+  firebase_storage: ^10.2.6
+  stacked: ^2.2.8
   
 dev_dependencies:
   flutter_test:
