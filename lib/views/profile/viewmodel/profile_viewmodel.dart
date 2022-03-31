@@ -13,21 +13,24 @@ class ProfileViewModel extends BaseViewModel {
   late bool isEdit;
   String? imagePath, name, state, about;
   int imageKey = 0;
-  User? user;
+  UserModel? user;
 
 // first function to run
   void init() async {
     setBusy(true);
     isEdit = false;
-    Map<String, dynamic>? data = await si.prof.getProfile();
-    user = User.fromJson(data!);
-    name = user?.name;
-    state = user?.state;
-    about = user?.about;
-    imagePath = si.auth.getUser()!.photoURL;
-
-    setBusy(false);
-    notifyListeners();
+    try {
+      Map<String, dynamic>? data = await si.prof.getProfile();
+      user = UserModel.fromJson(data!);
+      name = user?.name;
+      state = user?.state;
+      about = user?.about;
+      imagePath = si.auth.getUser()!.photoURL;
+      setBusy(false);
+      notifyListeners();
+    } catch (e) {
+      setError(true);
+    }
   }
 
 //toggle edit property
@@ -49,7 +52,7 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   //update profile
-  Future<void> updateProfile(User? user) async {
+  Future<void> updateProfile(UserModel? user) async {
     setBusy(true);
     var data = user!.toJson();
     await si.auth.updateUserInfo(data);

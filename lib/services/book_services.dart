@@ -1,3 +1,4 @@
+import 'package:bookworms/models/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:bookworms/models/book.dart';
 import 'package:bookworms/services/service_injector.dart';
@@ -14,6 +15,31 @@ class BookServices {
       await firestore
           .collection('books')
           .where('currentUser', isEqualTo: si.auth.getCurrentUser())
+          .get()
+          .then((value) {
+        List<QueryDocumentSnapshot<Map<String, dynamic>>> books = value.docs;
+        for (var book in books) {
+          bookList.add(Book(
+              title: book.data()['title'],
+              rating: book.data()['rating'],
+              author: book.data()['author'],
+              currentUser: book.data()['currentUser']));
+        }
+      });
+
+      return bookList;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+//get another single users book
+  Future<dynamic> getOtherUserBooks(UserModel user) async {
+    List<Book> bookList = [];
+    try {
+      await firestore
+          .collection('books')
+          .where('currentUser', isEqualTo: user.email)
           .get()
           .then((value) {
         List<QueryDocumentSnapshot<Map<String, dynamic>>> books = value.docs;

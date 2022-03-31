@@ -1,3 +1,4 @@
+import 'package:bookworms/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -32,7 +33,7 @@ class AuthServices {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
     } catch (e) {
-      return null;
+      rethrow;
     }
   }
 
@@ -45,16 +46,44 @@ class AuthServices {
           'uid': value.user!.uid,
           'state': '',
           'profile': value.user!.photoURL,
-          'about': ''
+          'about': '',
+          'email': value.user!.email,
         });
       });
     } catch (e) {
-      return null;
+      rethrow;
     }
   }
 
   // update user info
   Future<void> updateUserInfo(Map<String, dynamic> data) async {
-    await firestore.collection('users').doc(auth.currentUser!.uid).update(data);
+    try {
+      await firestore
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .update(data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+// to get all other users
+  Future<List<UserModel?>?> getAllUsers() async {
+    List<UserModel?> result = [];
+    try {
+      await firestore.collection('users').get().then((value) {
+        List<QueryDocumentSnapshot<Map<String, dynamic>>> datas = value.docs;
+        for (var element in datas) {
+          var data = element.data();
+
+          if (data['uid'] != getUser()!.uid) {
+            result.add(UserModel.fromJson(data));
+          }
+        }
+      });
+      return result;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

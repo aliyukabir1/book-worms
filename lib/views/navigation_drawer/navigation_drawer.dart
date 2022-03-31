@@ -1,5 +1,6 @@
 import 'package:bookworms/constants.dart';
 import 'package:bookworms/services/service_injector.dart';
+import 'package:bookworms/views/all_user/all_users_view.dart';
 import 'package:bookworms/views/profile/profile_view.dart';
 import 'package:bookworms/views/read_book/read_book_view.dart';
 
@@ -60,7 +61,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             onTap: () {
               si.router.nextScreen(context, const ReadBooksView());
             },
-            title: const Text('See All Books'),
+            title: const Text('See Your Books'),
             dense: true,
             tileColor: colorGrey.withOpacity(0.3),
           ),
@@ -69,7 +70,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             height: 1,
           ),
           ListTile(
-            title: const Text('Data'),
+            onTap: () {
+              si.router.nextScreen(context, const AllUsersview());
+            },
+            title: const Text("See Other User's Books"),
             dense: true,
             tileColor: colorGrey.withOpacity(0.3),
           )
