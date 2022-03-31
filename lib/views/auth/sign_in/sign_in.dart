@@ -34,6 +34,7 @@ class SignIn extends StatelessWidget {
               if (value!.isEmpty) {
                 return 'Field can not be empty';
               }
+              return null;
             },
           ),
           const SizedBox(height: 30),
@@ -44,6 +45,7 @@ class SignIn extends StatelessWidget {
               if (value!.isEmpty) {
                 return 'Field can not be empty';
               }
+              return null;
             },
           ),
           const SizedBox(height: 30),
