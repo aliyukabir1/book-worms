@@ -45,10 +45,10 @@ class SingleUserView extends StatelessWidget {
               ),
               body: Column(
                 children: [
-                  const Center(
+                  Center(
                     child: Text(
-                      'Books Read by Hashim',
-                      style: TextStyle(color: colorGrey, fontSize: 15),
+                      'Books Read by ${userModel.name}',
+                      style: const TextStyle(color: colorGrey, fontSize: 15),
                     ),
                   ),
                   Expanded(
@@ -57,17 +57,18 @@ class SingleUserView extends StatelessWidget {
                       child: ListView.separated(
                           itemBuilder: (context, index) {
                             return ListTile(
-                              title: const Text(
-                                'redad',
-                                style: TextStyle(color: Colors.white),
+                              title: Text(
+                                model.booksList[index]!.title,
+                                style: const TextStyle(color: Colors.white),
                               ),
-                              subtitle: const Text('author',
-                                  style: TextStyle(color: colorGrey)),
+                              subtitle: Text(
+                                  model.booksList[index]!.author ?? '',
+                                  style: const TextStyle(color: colorGrey)),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    index.toString(),
+                                    model.booksList[index]!.rating.toString(),
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
@@ -81,7 +82,7 @@ class SingleUserView extends StatelessWidget {
                           },
                           separatorBuilder: (BuildContext context, int index) =>
                               const Divider(color: colorGrey),
-                          itemCount: 7),
+                          itemCount: model.booksList.length),
                     ),
                   ),
                 ],
