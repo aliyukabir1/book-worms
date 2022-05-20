@@ -6,16 +6,19 @@ class AuthServices {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
 
+//the current user using the app
   String getCurrentUser() {
     String? email = auth.currentUser!.email;
     return email!;
   }
 
+// checks if theres a user loggedin
   bool isLoggedIn() {
     var user = auth.currentUser;
     return user == null ? false : true;
   }
 
+// gets user
   User? getUser() {
     var user = auth.currentUser;
     return user;
@@ -85,5 +88,14 @@ class AuthServices {
     } catch (e) {
       rethrow;
     }
+  }
+
+  //get a user with id
+  Future<UserModel> getUserWithId(dynamic id) async {
+    return firestore
+        .collection('users')
+        .doc(id)
+        .get()
+        .then((value) => UserModel.fromJson(value.data()!));
   }
 }

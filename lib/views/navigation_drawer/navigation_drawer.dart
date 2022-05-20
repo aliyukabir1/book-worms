@@ -1,6 +1,7 @@
 import 'package:bookworms/constants.dart';
 import 'package:bookworms/services/service_injector.dart';
 import 'package:bookworms/views/all_user/all_users_view.dart';
+import 'package:bookworms/views/favourites/favourite.dart';
 import 'package:bookworms/views/profile/profile_view.dart';
 import 'package:bookworms/views/read_book/read_book_view.dart';
 
@@ -74,6 +75,18 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               si.router.nextScreen(context, const AllUsersview());
             },
             title: const Text("See Other User's Books"),
+            dense: true,
+            tileColor: colorGrey.withOpacity(0.3),
+          ),
+          const Divider(
+            color: colorWhite,
+            height: 1,
+          ),
+          ListTile(
+            onTap: () {
+              si.router.nextScreen(context, const FavouriteView());
+            },
+            title: const Text("Friends"),
             dense: true,
             tileColor: colorGrey.withOpacity(0.3),
           )
