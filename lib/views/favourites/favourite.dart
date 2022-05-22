@@ -36,6 +36,7 @@ class FavouriteView extends StatelessWidget {
                                             context,
                                             SingleUserView(
                                               userModel: model.data[index]!,
+                                              isFriendPage: true,
                                             ));
                                       },
                                       title: Text(

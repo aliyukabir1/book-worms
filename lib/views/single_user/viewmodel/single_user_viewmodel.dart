@@ -4,7 +4,6 @@ import 'package:bookworms/services/service_injector.dart';
 import 'package:stacked/stacked.dart';
 
 class SingleUserViewModel extends BaseViewModel {
-  bool like = false;
   List<Book?> booksList = [];
   init(UserModel user) async {
     setBusy(true);
@@ -13,9 +12,11 @@ class SingleUserViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  toggleLike() {
-    like = !like;
+  addFriend(String friendId) async {
+    await si.friendServices.addFriend(friendId);
+  }
 
-    notifyListeners();
+  removeFriend(String friendId) async {
+    await si.friendServices.removeFriend(friendId);
   }
 }

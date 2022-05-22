@@ -1,12 +1,16 @@
 import 'package:bookworms/constants.dart';
 import 'package:bookworms/models/user.dart';
+import 'package:bookworms/services/service_injector.dart';
 import 'package:bookworms/views/single_user/viewmodel/single_user_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class SingleUserView extends StatelessWidget {
+  final bool isFriendPage;
   final UserModel userModel;
-  const SingleUserView({Key? key, required this.userModel}) : super(key: key);
+  const SingleUserView(
+      {Key? key, required this.userModel, this.isFriendPage = false})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SingleUserViewModel>.reactive(
@@ -20,19 +24,18 @@ class SingleUserView extends StatelessWidget {
                 title: Text(userModel.name ?? ''),
                 actions: [
                   Container(
-                    decoration: BoxDecoration(
-                        color: model.like
-                            ? colorWhite
-                            : colorWhite.withOpacity(0.5),
-                        shape: BoxShape.circle),
+                    decoration: const BoxDecoration(
+                        color: colorWhite, shape: BoxShape.circle),
                     child: IconButton(
-                      onPressed: () {
-                        model.toggleLike();
+                      onPressed: () async {
+                        isFriendPage
+                            ? await model.removeFriend(userModel.uid ?? '')
+                            : await model.addFriend(userModel.uid ?? '');
+
+                        si.util.showToast(context, 'hhhdddh');
                       },
-                      icon: Icon(
-                        Icons.favorite,
-                        color: model.like ? Colors.red : null,
-                      ),
+                      icon: Icon(isFriendPage ? Icons.remove : Icons.add,
+                          color: Colors.red),
                     ),
                   ),
                   const SizedBox(

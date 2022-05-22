@@ -21,4 +21,16 @@ class FriendServices {
 
     return listOfFriends;
   }
+
+  Future<void> addFriend(String friendId) async {
+    firestore.collection('users').doc(si.auth.getUser()!.uid).update({
+      'friends': FieldValue.arrayUnion([friendId])
+    });
+  }
+
+  Future<void> removeFriend(String friendId) async {
+    firestore.collection('users').doc(si.auth.getUser()!.uid).update({
+      'friends': FieldValue.arrayRemove([friendId])
+    });
+  }
 }
