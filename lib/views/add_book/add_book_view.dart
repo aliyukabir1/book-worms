@@ -14,10 +14,21 @@ class AddBookView extends StatefulWidget {
 class _AddBookViewState extends State<AddBookView> {
   @override
   Widget build(BuildContext context) {
+    //controllers
     TextEditingController titleController = TextEditingController();
     TextEditingController authorController = TextEditingController();
+    TextEditingController shortNoteController = TextEditingController();
     int? rating;
     Size size = MediaQuery.of(context).size;
+
+//clears all the input fields
+    void clearAllInput() {
+      titleController.clear();
+      authorController.clear();
+      shortNoteController.clear();
+      rating = null;
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -62,6 +73,12 @@ class _AddBookViewState extends State<AddBookView> {
                 ),
               ),
               const SizedBox(height: 30),
+              Input(
+                hintText: 'short note',
+                controller: shortNoteController,
+                maxLines: 4,
+              ),
+              const SizedBox(height: 30),
               MaterialButton(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -72,12 +89,11 @@ class _AddBookViewState extends State<AddBookView> {
                       'title': titleController.text,
                       'author': authorController.text,
                       'rating': rating ?? 1,
-                      'currentUser': si.auth.getCurrentUser()
+                      'currentUser': si.auth.getCurrentUser(),
+                      'shortNote': shortNoteController.text
                     };
                     await si.bookServices.addBook(newdata);
-                    titleController.clear();
-                    authorController.clear();
-                    rating = null;
+                    clearAllInput();
                     Navigator.pop(context);
                   }
                 },

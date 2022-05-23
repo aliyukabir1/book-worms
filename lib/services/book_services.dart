@@ -23,7 +23,8 @@ class BookServices {
               title: book.data()['title'],
               rating: book.data()['rating'],
               author: book.data()['author'],
-              currentUser: book.data()['currentUser']));
+              currentUser: book.data()['currentUser'],
+              shortNote: book.data()['shortNote']));
         }
       });
 

@@ -6,13 +6,15 @@ class Input extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final TextCapitalization? textCapitalization;
+  final int? maxLines;
 
   const Input(
       {Key? key,
       this.controller,
       required this.hintText,
       this.validator,
-      this.textCapitalization})
+      this.textCapitalization,
+      this.maxLines})
       : super(key: key);
 
   @override
@@ -20,6 +22,7 @@ class Input extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
+        maxLines: maxLines,
         controller: controller,
         validator: validator,
         textCapitalization: textCapitalization ?? TextCapitalization.none,

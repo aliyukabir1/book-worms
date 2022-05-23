@@ -32,7 +32,11 @@ class SingleUserView extends StatelessWidget {
                             ? await model.removeFriend(userModel.uid ?? '')
                             : await model.addFriend(userModel.uid ?? '');
 
-                        si.util.showToast(context, 'hhhdddh');
+                        si.util.showToast(
+                            context,
+                            isFriendPage
+                                ? '${userModel.name ?? userModel.email} has been removed from your friends list.'
+                                : '${userModel.name ?? userModel.email} has been added to your friends list.');
                       },
                       icon: Icon(isFriendPage ? Icons.remove : Icons.add,
                           color: Colors.red),
