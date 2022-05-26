@@ -22,6 +22,10 @@ class Input extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
+        // if anythig goes wrong, delete this onchanged;
+        onChanged: (value) {
+          controller!.text = value;
+        },
         maxLines: maxLines,
         controller: controller,
         validator: validator,

@@ -1,6 +1,7 @@
 import 'package:bookworms/constants.dart';
 import 'package:bookworms/services/service_injector.dart';
 import 'package:bookworms/views/read_book/viewmodel/read_book_viewmodel.dart';
+import 'package:bookworms/views/single_book/single_book_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -31,6 +32,18 @@ class ReadBooksView extends StatelessWidget {
                             child: ListView.separated(
                                 itemBuilder: (context, index) {
                                   return ListTile(
+                                    onTap: () {
+                                      si.router.nextScreen(
+                                        context,
+                                        SingleBookDetail(
+                                          title: model.data![index].title,
+                                          rating: model.data![index].rating,
+                                          author: model.data![index].author,
+                                          shortNote:
+                                              model.data![index].shortNote,
+                                        ),
+                                      );
+                                    },
                                     title: Text(
                                       model.data![index].title,
                                       style:
