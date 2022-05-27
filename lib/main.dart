@@ -11,10 +11,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  //boilerplate
   final bool loggedIn = true;
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -27,7 +24,7 @@ class MyApp extends StatelessWidget {
           }
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
+            title: 'Book Worms',
             theme: ThemeData(
               scaffoldBackgroundColor: scaffoldbg,
             ),
