@@ -1,4 +1,5 @@
 import 'package:bookworms/models/user.dart';
+import 'package:bookworms/services/local_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:bookworms/models/book.dart';
 import 'package:bookworms/services/service_injector.dart';
@@ -18,6 +19,7 @@ class BookServices {
           .get()
           .then((value) {
         List<QueryDocumentSnapshot<Map<String, dynamic>>> books = value.docs;
+        LocalStorage().setNumberOfBooksRead(books.length);
         for (var book in books) {
           bookList.add(Book(
               title: book.data()['title'],
