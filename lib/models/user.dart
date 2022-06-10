@@ -23,7 +23,7 @@ class UserModel {
         state: json['state'],
         imageUrl: json['imageUrl'],
         email: json['email'],
-        friends: json['friends'],
+        //  friends: json['friends'],
         uid: json['uid']);
   }
   Map<String, dynamic> toJson() => {
