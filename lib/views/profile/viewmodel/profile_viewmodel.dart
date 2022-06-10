@@ -20,17 +20,14 @@ class ProfileViewModel extends BaseViewModel {
     setBusy(true);
     isEdit = false;
     try {
-      print('start');
-
       Map<String, dynamic>? data = await si.prof.getProfile();
-      print('md');
 
       user = UserModel.fromJson(data!);
-      print('end');
-      // name = user?.name;
-      // state = user?.state;
-      // about = user?.about;
-      // imagePath = si.auth.getUser()!.photoURL;
+
+      name = user?.name;
+      state = user?.state;
+      about = user?.about;
+      imagePath = si.auth.getUser()!.photoURL;
       setBusy(false);
       notifyListeners();
     } catch (e) {
