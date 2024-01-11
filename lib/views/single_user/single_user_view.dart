@@ -15,7 +15,7 @@ class SingleUserView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<SingleUserViewModel>.reactive(
         viewModelBuilder: () => SingleUserViewModel(),
-        onModelReady: (model) {
+        onViewModelReady: (model) {
           model.init(userModel);
         },
         builder: (context, model, child) => SafeArea(
@@ -32,6 +32,7 @@ class SingleUserView extends StatelessWidget {
                             ? await model.removeFriend(userModel.uid ?? '')
                             : await model.addFriend(userModel.uid ?? '');
 
+                        // ignore: use_build_context_synchronously
                         si.util.showToast(
                             context,
                             isFriendPage

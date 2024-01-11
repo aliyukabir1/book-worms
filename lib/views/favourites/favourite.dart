@@ -11,7 +11,7 @@ class FavouriteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FavouriteViewModel>.reactive(
-        onModelReady: (model) => model.init(),
+        onViewModelReady: (model) => model.init(),
         viewModelBuilder: () => FavouriteViewModel(),
         builder: (context, model, child) => SafeArea(
               child: Scaffold(

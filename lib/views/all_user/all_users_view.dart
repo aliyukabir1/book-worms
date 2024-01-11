@@ -12,7 +12,7 @@ class AllUsersview extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AllUsersViewModel>.reactive(
         viewModelBuilder: () => AllUsersViewModel(),
-        onModelReady: (model) {
+        onViewModelReady: (model) {
           model.init();
         },
         builder: (context, model, child) => SafeArea(

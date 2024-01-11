@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
               icon: const Icon(Icons.exit_to_app_rounded))
         ],
       ),
-      drawer: const NavigationDrawer(),
+      drawer: const NavDrawer(),
       body: const Body(),
     ));
   }

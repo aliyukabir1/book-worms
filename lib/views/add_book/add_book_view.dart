@@ -105,11 +105,13 @@ class _AddBookViewState extends State<AddBookView> {
                           'currentUser': si.auth.getCurrentUser(),
                           'shortNote': shortNoteController.text
                         };
-                        await si.bookServices.addBook(newdata);
+                        si.bookServices.addBook(newdata).then(
+                              (value) => si.util
+                                  .showToast(context, 'book add successfully'),
+                            );
                         clearAllInput();
                         rating = 0;
-                        si.util.showToast(context, 'book add successfully');
-                        //  Navigator.pop(context);
+
                       }
                     },
                     color: colorGrey,

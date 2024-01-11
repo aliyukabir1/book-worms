@@ -52,12 +52,11 @@ class SignUp extends StatelessWidget {
                 title: 'Sign Up',
                 function: () async {
                   if (_signupKey.currentState!.validate()) {
-                    try {
-                      await si.auth.signUp(email.text, password.text);
-                      si.router.popScreen(context);
-                    } catch (e) {
-                      si.util.showToast(context, e.toString());
-                    }
+                    await si.auth
+                        .signUp(email.text, password.text)
+                        .then((value) => si.router.popScreen(context))
+                        .catchError(
+                            (e) => si.util.showToast(context, e.toString()));
                   }
                 },
               )

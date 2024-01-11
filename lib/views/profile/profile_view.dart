@@ -18,7 +18,7 @@ class ProfileView extends StatelessWidget {
 
     return ViewModelBuilder<ProfileViewModel>.reactive(
         viewModelBuilder: () => ProfileViewModel(),
-        onModelReady: (model) {
+        onViewModelReady: (model) {
           model.init();
           nameController.text = model.name ?? '';
           aboutController.text = model.about ?? '';

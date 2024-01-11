@@ -7,14 +7,14 @@ import 'package:bookworms/views/read_book/read_book_view.dart';
 
 import 'package:flutter/material.dart';
 
-class NavigationDrawer extends StatefulWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+class NavDrawer extends StatefulWidget {
+  const NavDrawer({Key? key}) : super(key: key);
 
   @override
-  State<NavigationDrawer> createState() => _NavigationDrawerState();
+  State<NavDrawer> createState() => _NavDrawerState();
 }
 
-class _NavigationDrawerState extends State<NavigationDrawer> {
+class _NavDrawerState extends State<NavDrawer> {
   String? imagePath;
   @override
   void initState() {

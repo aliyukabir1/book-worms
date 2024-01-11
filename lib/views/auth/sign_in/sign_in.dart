@@ -66,13 +66,13 @@ class SignIn extends StatelessWidget {
             function: () async {
               if (_signInKey.currentState!.validate()) {
                 FocusScope.of(context).unfocus();
-                try {
-                  await si.auth.signIn(email.text, password.text).then(
-                      (value) =>
-                          si.router.replaceScreen(context, const Home()));
-                } catch (e) {
-                  si.util.showToast(context, e.toString());
-                }
+
+                await si.auth
+                    .signIn(email.text, password.text)
+                    .then((value) =>
+                        si.router.replaceScreen(context, const Home()))
+                    .catchError(
+                        (e) => si.util.showToast(context, e.toString()));
               }
             },
           ),

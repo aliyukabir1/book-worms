@@ -11,7 +11,7 @@ class ReadBooksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ReadBookViewModel>.reactive(
         viewModelBuilder: () => ReadBookViewModel(),
-        onModelReady: (model) {
+        onViewModelReady: (model) {
           model.init();
         },
         builder: (context, model, child) => SafeArea(
